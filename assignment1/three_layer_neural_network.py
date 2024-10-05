@@ -3,13 +3,13 @@ import numpy as np
 from sklearn import datasets, linear_model
 import matplotlib.pyplot as plt
 
-def generate_data():
+def generate_data(dataset_func=datasets.make_moons, **kwargs):
     '''
     generate data
     :return: X: input data, y: given labels
     '''
     np.random.seed(0)
-    X, y = datasets.make_moons(200, noise=0.20)
+    X, y = dataset_func(**kwargs)
     return X, y
 
 def plot_decision_boundary(pred_func, X, y):
@@ -165,15 +165,24 @@ class NeuralNetwork(object):
         plot_decision_boundary(lambda x: self.predict(x), X, y)
 
 
-def main():
+def main_make_moon():
     # generate and visualize Make-Moons dataset
-    X, y = generate_data()
+    X, y = generate_data(datasets.make_moons, n_samples=200, noise=0.20)
     plt.scatter(X[:, 0], X[:, 1], s=40, c=y, cmap=plt.cm.Spectral)
     plt.show()
+    model = NeuralNetwork(nn_input_dim=2, nn_hidden_dim=3, nn_output_dim=2, actFun_type='tanh')
+    model.fit_model(X, y)
+    model.visualize_decision_boundary(X, y)
 
+def main_make_make_circles():
+    # generate and visualize Make-Moons dataset
+    X, y = generate_data(datasets.make_circles, n_samples=100, noise=0.05, factor=0.5)
+    plt.scatter(X[:, 0], X[:, 1], s=40, c=y, cmap=plt.cm.Spectral)
+    plt.show()
     model = NeuralNetwork(nn_input_dim=2, nn_hidden_dim=3, nn_output_dim=2, actFun_type='tanh')
     model.fit_model(X, y)
     model.visualize_decision_boundary(X, y)
 
 if __name__ == "__main__":
-    main()
+    main_make_moon()
+    main_make_make_circles()
