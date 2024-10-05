@@ -27,7 +27,7 @@ def plot_decision_boundary(pred_func, X, y):
     # Generate a grid of points with distance h between them
     xx, yy = np.meshgrid(np.arange(x_min, x_max, h), np.arange(y_min, y_max, h))
     # Predict the function value for the whole gid
-    Z = pred_func(np.c_[xx.ravel(), yy.ravel()])
+    Z = pred_func(np.c_[xx.ravel(), yy.ravel()]
     Z = Z.reshape(xx.shape)
     # Plot the contour and training examples
     plt.contourf(xx, yy, Z, cmap=plt.cm.Spectral)
