@@ -165,7 +165,7 @@ class NeuralNetwork(object):
         plot_decision_boundary(lambda x: self.predict(x), X, y)
 
 
-def main_make_moon():
+def main_make_moon(use_different_activation_functions=False, use_different_nn_hidden_dim=False):
     # generate and visualize Make-Moons dataset
     X, y = generate_data(datasets.make_moons, n_samples=200, noise=0.20)
     plt.scatter(X[:, 0], X[:, 1], s=40, c=y, cmap=plt.cm.Spectral)
@@ -173,6 +173,22 @@ def main_make_moon():
     model = NeuralNetwork(nn_input_dim=2, nn_hidden_dim=3, nn_output_dim=2, actFun_type='tanh')
     model.fit_model(X, y)
     model.visualize_decision_boundary(X, y)
+
+    if use_different_activation_functions:
+        model = NeuralNetwork(nn_input_dim=2, nn_hidden_dim=3, nn_output_dim=2, actFun_type='sigmoid')
+        model.fit_model(X, y)
+        model.visualize_decision_boundary(X, y)
+
+    if use_different_activation_functions:
+        model = NeuralNetwork(nn_input_dim=2, nn_hidden_dim=3, nn_output_dim=2, actFun_type='relu')
+        model.fit_model(X, y)
+        model.visualize_decision_boundary(X, y)
+
+    if use_different_nn_hidden_dim:
+        for hidden_dim in [5, 10, 20]:
+            model = NeuralNetwork(nn_input_dim=2, nn_hidden_dim=hidden_dim, nn_output_dim=2, actFun_type='tanh')
+            model.fit_model(X, y)
+            model.visualize_decision_boundary(X, y)
 
 def main_make_make_circles():
     # generate and visualize Make-Moons dataset
@@ -184,5 +200,5 @@ def main_make_make_circles():
     model.visualize_decision_boundary(X, y)
 
 if __name__ == "__main__":
-    main_make_moon()
-    main_make_make_circles()
+    main_make_moon(False, True)
+    # main_make_make_circles()
