@@ -185,7 +185,7 @@ def main_make_moon(use_different_activation_functions=False, use_different_nn_hi
         model.visualize_decision_boundary(X, y)
 
     if use_different_nn_hidden_dim:
-        for hidden_dim in [5, 10, 20]:
+        for hidden_dim in [5, 10, 50]:
             model = NeuralNetwork(nn_input_dim=2, nn_hidden_dim=hidden_dim, nn_output_dim=2, actFun_type='tanh')
             model.fit_model(X, y)
             model.visualize_decision_boundary(X, y)
